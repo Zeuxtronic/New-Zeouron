@@ -3,7 +3,7 @@ lp = game.Players.LocalPlayer
 local Mem = getsenv(game.Players.LocalPlayer.PlayerScripts.CoreScript)._G
 local TalentConfig -- fuck you mours devs
 if game:GetService("ReplicatedStorage"):FindFirstChild("TalentConfig") then
-	TalentConfig = require(RST.TalentConfig)
+	TalentConfig = require(game:GetService("ReplicatedStorage").TalentConfig)
 end
 local MenuConfig = require(game:GetService("ReplicatedStorage").MenuConfig)
 
