@@ -165,7 +165,7 @@ local Popups = {
      	Round(YesButton, 0.02)
      	Round(NoButton, 0.02)
     end,
-    OK = function(Title, Description)
+    OK = function(Title, Description, DeleteTime)
         if PopupFrame then
         	Tween({
     			PopupFrame,
@@ -189,6 +189,20 @@ local Popups = {
        	PopupFrame.ScrollBarImageColor3 = Data.Color
     	PopupFrame.ScrollBarImageTransparency = 0
     	PopupFrame.CanvasSize = UDim2.new(0,0,0,0)
+
+	task.spawn(function()
+		if DeleteTime then
+			task.wait(DeleteTime)
+			Tween({
+    			PopupFrame,
+       			"Size",
+       			0.3,
+       		 	UDim2.new(0,360,0,0)
+    		})
+    		task.wait(0.3)
+            PopupFrame:Destroy()
+		end
+	end
       
       	local PopupFrameOutline = Instance.new("Frame", PopupFrame)
     
@@ -267,7 +281,7 @@ ExecuteScript = function()
              
              	loadstring(game:HttpGet(v.Script))()
            
-           		Popups.OK("Hey!", "Join our discord for: Updates, information, community and more!")
+           		Popups.OK("Hey!", "Join our discord for: Updates, information, community and more!",5)
             end
         end
     	if v.ID == game.PlaceId and v.Type == "GameSupport" then
@@ -276,8 +290,8 @@ ExecuteScript = function()
             	Popups.YN("Warning!","This games script is disconntinued, if you get banned, it is not our fault.",function()
     				loadstring(game:HttpGet(v.Script))()
     			end)
-            else
-            	Popups.OK("Hey!", "Join our discord for: Updates, information, community and more!")
+			else
+            	Popups.OK("Hey!", "Join our discord for: Updates, information, community and more!",5)
              	loadstring(game:HttpGet(v.Script))()
             end
         elseif v.Type == "GameSupport" then
